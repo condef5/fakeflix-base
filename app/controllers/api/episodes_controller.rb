@@ -8,9 +8,7 @@ class Api::EpisodesController < ApplicationController
   end
 
   def playback
-    episode = Episode.find(params[:id])
-    episode.playback = params[:progress]
-    episode.save()
-    render json: { message: "Update successfull playback episode" }, status: :ok
+    episode = Episode.update(params[:id], playback: params[:progress])
+    render json: episode, status: :ok
   end
 end
