@@ -8,7 +8,7 @@ class Api::SeriesController < ApplicationController
   end
 
   def show
-    render json: Serie.find(params[:id]).as_json(include: :episodes), status: :ok
+    render json: Serie.find(params[:id]).as_json(include: {episodes: { only: [:id, :title] }}), status: :ok
   end
 
   def rating
