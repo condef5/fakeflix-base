@@ -51,34 +51,36 @@ describe Api::MoviesController do
     end
   end
 
-  describe "PATCH update" do
+  describe "PATCH update playback" do
     it "returns http status ok in playback" do
-      put :playback, params: {
+      patch :playback, params: {
         id: @movie,
         progress: 80,
       }
       expect(response).to have_http_status(:ok)
     end
     
-    it "returns the updated playback movie" do
-      put :playback, params: {
+    it "returns the updated @movie" do
+      patch :playback, params: {
         id: @movie,
         progress: 80,
       }
       expected_movie = JSON.parse(response.body)
       expect(expected_movie["playback"]).to eq(80)
     end
-  
-    it "returns http status ok in rating" do
-      put :rating, params: {
+  end
+
+  describe "PATCH update rating" do
+    it "returns http status ok" do
+      patch :rating, params: {
         id: @movie,
         rating: 3,
       }
       expect(response).to have_http_status(:ok)
     end
     
-    it "returns the updated rating movie" do
-      put :rating, params: {
+    it "returns the updated @movie" do
+      patch :rating, params: {
         id: @movie,
         rating: 3
       }

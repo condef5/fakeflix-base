@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   namespace :api do
 
     resources :movies, only: [:index, :show] do
-      put "playback", on: :member
-      put "rating", on: :member
+      patch "playback", on: :member
+      patch "rating", on: :member
     end
 
     resources :series, only: [ :index, :show ] do
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end
 
     resources :episodes, only: [:show] do
-      put "playback", on: :member    
+      patch "playback", on: :member    
     end
 
     resources :rentals, only: [:index] do

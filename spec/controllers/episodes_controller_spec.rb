@@ -33,7 +33,7 @@ describe Api::EpisodesController do
 
   describe "PATCH update" do
     it "returns http status ok in playback" do
-      put :playback, params: {
+      patch :playback, params: {
         id: @episode,
         progress: 80,
       }
@@ -41,7 +41,7 @@ describe Api::EpisodesController do
     end
     
     it "returns the updated playback" do
-      put :playback, params: {
+      patch :playback, params: {
         id: @episode,
         progress: 80,
       }
