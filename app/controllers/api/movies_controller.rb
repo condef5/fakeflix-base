@@ -10,4 +10,11 @@ class Api::MoviesController < ApplicationController
   def show
     render json: Movie.find(params[:id]), status: :ok
   end
+  
+  def playback
+    movie = Movie.find(params[:id])
+    movie.playback = params[:progress]
+    movie.save()
+    render json: { message: "Update successfull playback movie" }, status: :ok
+  end
 end
