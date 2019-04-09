@@ -10,6 +10,7 @@ end
 #  id          :bigint(8)        not null, primary key
 #  description :text
 #  duration    :integer
+#  playback    :integer
 #  price       :integer
 #  rating      :integer
 #  status      :integer
