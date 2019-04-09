@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     end
 
     resources :series, only: [ :index, :show ] do
-      put "rating", on: :member
+      patch "rating", on: :member
     end
 
     resources :episodes, only: [:show] do
