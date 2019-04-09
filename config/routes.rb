@@ -6,5 +6,9 @@ Rails.application.routes.draw do
     resources :series, only: [:index, :show]
     resources :episodes, only: [:show]
 
+    resources :rentals, only: [:index, :show] do
+      post '/movies/:id' => :movies, on: :collection
+      post '/series/:id' => :series, on: :collection
+    end
   end
 end
