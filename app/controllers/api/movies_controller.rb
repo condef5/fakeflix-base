@@ -12,14 +12,12 @@ class Api::MoviesController < ApplicationController
   end
   
   def playback
-    movie = Movie.find(params[:id])
-    movie.playback = params[:progress]
-    movie.save()
-    render json: { message: "Update successfull playback movie" }, status: :ok
+    movie = Movie.update(params[:id], playback: params[:progress])
+    render json: movie, status: :ok
   end
 
   def rating
-    Movie.update(params[:id], :rating => params[:rating])
-    render json: { message: "Update successfull rating movie" }, status: :ok
+    movie = Movie.update(params[:id], rating: params[:rating])
+    render json: movie, status: :ok
   end
 end
