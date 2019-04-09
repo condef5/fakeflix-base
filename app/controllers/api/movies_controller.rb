@@ -17,4 +17,9 @@ class Api::MoviesController < ApplicationController
     movie.save()
     render json: { message: "Update successfull playback movie" }, status: :ok
   end
+
+  def rating
+    Movie.update(params[:id], :rating => params[:rating])
+    render json: { message: "Update successfull rating movie" }, status: :ok
+  end
 end

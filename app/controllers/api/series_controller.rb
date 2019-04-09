@@ -10,4 +10,9 @@ class Api::SeriesController < ApplicationController
   def show
     render json: Serie.find(params[:id]).as_json(include: :episodes), status: :ok
   end
+
+  def rating
+    Serie.update(params[:id], :rating => params[:rating])
+    render json: { message: "Update successfull rating serie" }, status: :ok
+  end
 end

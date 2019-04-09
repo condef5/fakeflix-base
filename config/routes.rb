@@ -4,8 +4,13 @@ Rails.application.routes.draw do
 
     resources :movies, only: [:index, :show] do
       put "playback", on: :member
+      put "rating", on: :member
     end
-    resources :series, only: [:index, :show]
+
+    resources :series, only: [ :index, :show ] do
+      put "rating", on: :member
+    end
+
     resources :episodes, only: [:show] do
       put "playback", on: :member    
     end
