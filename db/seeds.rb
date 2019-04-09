@@ -7,12 +7,14 @@ require 'faker'
     duration: (rand(7200) / 3600.00).round(2),
     price: rand(100),
     rating: rand(5) + 1,
+    status: rand(3),
     title: Faker::Movie.quote
   )
   serie = Serie.create(
     description: Faker::Movies::VForVendetta.quote,
     price: rand(100),
     rating: rand(5) + 1,
+    status: rand(3),
     title: Faker::Movie.quote
   )
 
