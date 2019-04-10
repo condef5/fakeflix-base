@@ -8,7 +8,8 @@ require 'faker'
     price: rand(100),
     rating: rand(5) + 1,
     status: rand(3),
-    title: Faker::Movie.quote
+    title: Faker::Movie.quote,
+    playback: 0
   )
   serie = Serie.create(
     description: Faker::Movies::VForVendetta.quote,

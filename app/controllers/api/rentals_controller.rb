@@ -1,6 +1,8 @@
 class Api::RentalsController < ApplicationController
   def index
-    render json: Rental.all, status: :ok
+    movies = Rental.rentables("Movie")
+    series = Rental.rentables("Serie")
+    render json: {"movies" => movies, "series" => series}, status: :ok
   end
 
   def movies

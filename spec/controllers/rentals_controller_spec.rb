@@ -30,10 +30,12 @@ describe Api::RentalsController do
       get :index
       expect(response).to have_http_status(:ok)
     end
-    it 'render json with all rentals' do
+    it 'render json with all videos and series that were rented' do
       get :index
       rentals = JSON.parse(response.body)
       expect(rentals.size).to eq 2
+      expect(rentals).to have_key("movies")
+      expect(rentals).to have_key("series")
     end
   end
 
