@@ -1,9 +1,9 @@
 class Api::MoviesController < ApplicationController
   def index
     if params.key? "filter"
-      render json: Movie.where(status: params[:filter]), status: :ok
+      render json: Movie.where(status: params[:filter]), methods: :rented, status: :ok
     else
-      render json: Movie.all, status: :ok
+      render json: Movie.all, methods: :rented, status: :ok
     end
   end
 
