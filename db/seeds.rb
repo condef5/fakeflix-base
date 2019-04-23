@@ -1,5 +1,10 @@
 require 'faker'
 
+# Create users
+User.destroy_all
+User.create(name: 'Codeable', email: 'hello@codeable.pe', password: '123456')
+User.create(name: 'Able', email: 'hello@able.co', password: '123456')
+
 # seed movies
 10.times do
   movie = Movie.create(
@@ -11,6 +16,7 @@ require 'faker'
     title: Faker::Movie.quote,
     playback: 0
   )
+
   serie = Serie.create(
     description: Faker::Movies::VForVendetta.quote,
     price: rand(100),
