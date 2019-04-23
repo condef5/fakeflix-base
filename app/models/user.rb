@@ -10,6 +10,7 @@ end
 #  email           :string
 #  name            :string
 #  password_digest :string
+#  role            :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
