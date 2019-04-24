@@ -1,4 +1,7 @@
 class Api::RentalsController < ApplicationController
+  
+  before_action :set_rental, only: [:show, :edit, :update, :destroy]
+
   def index
     movies = Rental.rentables("Movie")
     series = Rental.rentables("Serie")
@@ -19,5 +22,36 @@ class Api::RentalsController < ApplicationController
       paid_price: serie.price
     )
     render json: rental, status: :created
+  end
+
+  def create
+    @rental = Rental.new(rental_params)
+    if @rental.save
+      render json: @rental, status: :ok
+    else
+      render json: @rental.errors, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @rental.update(rental_params)
+      render json: @rental, status: :ok
+    else
+      render json: @rental.errors, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @rental.destroy
+    render nothing: true, status: :no_content
+  end
+
+  private
+  def set_rental
+    @rental = Rental.find(params[:id])
+  end
+
+  def rental_params
+    params.permit(:paid_price, :rentable_type, :rentable_id)
   end
 end

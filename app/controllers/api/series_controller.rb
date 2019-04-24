@@ -1,4 +1,7 @@
 class Api::SeriesController < ApplicationController
+  
+  before_action :set_serie, only: [:show, :update, :destroy]
+
   def index
     if params.key? "filter"
       render json: Serie.where(status: params[:filter]), methods: :rented, status: :ok
@@ -14,5 +17,40 @@ class Api::SeriesController < ApplicationController
   def rating
     serie = Serie.update(params[:id], :rating => params[:rating])
     render json: serie, status: :ok
+  end
+
+  def create
+    @serie = Serie.new(serie_params)
+    if @serie.save
+      render json: @serie, status: :ok
+    else
+      render json: @serie.errors, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @serie.update(serie_params)
+      render json: @serie, status: :ok
+    else
+      render json: @serie.errors, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @serie.destroy
+    render nothing: true, status: :no_content
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do |e|
+    render json: { message: e.message }, status: :not_found
+  end
+
+  private
+  def set_serie
+    @serie = Serie.find(params[:id])
+  end
+
+  def serie_params
+    params.permit(:title ,:description ,:rating , :price ,:status)
   end
 end
