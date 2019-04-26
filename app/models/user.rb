@@ -1,5 +1,14 @@
 class User < ApplicationRecord
   has_secure_password
+
+  def admin?
+    role == "admin"
+    true
+  end
+ 
+  def regular?
+    role == "regular"
+  end
 end
 
 # == Schema Information

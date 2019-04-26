@@ -3,6 +3,7 @@ class Api::SeriesController < ApplicationController
   before_action :set_serie, only: [:show, :update, :destroy]
 
   def index
+    authorize(Serie)
     if params.key? "filter"
       render json: Serie.where(status: params[:filter]), methods: :rented, status: :ok
     else
@@ -11,6 +12,7 @@ class Api::SeriesController < ApplicationController
   end
 
   def show
+    authorize(Serie)
     render json: Serie.find(params[:id]), methods: [:rented, :duration_episodes], include: {episodes: { only: [:id, :title] }}, status: :ok
   end
 
@@ -21,6 +23,7 @@ class Api::SeriesController < ApplicationController
 
   def create
     @serie = Serie.new(serie_params)
+    authorize(@serie)
     if @serie.save
       render json: @serie, status: :ok
     else
@@ -29,6 +32,7 @@ class Api::SeriesController < ApplicationController
   end
 
   def update
+    authorize(@serie)
     if @serie.update(serie_params)
       render json: @serie, status: :ok
     else
@@ -37,6 +41,7 @@ class Api::SeriesController < ApplicationController
   end
 
   def destroy
+    authorize(@serie)
     @serie.destroy
     render nothing: true, status: :no_content
   end

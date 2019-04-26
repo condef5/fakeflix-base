@@ -3,6 +3,7 @@ class Api::RentalsController < ApplicationController
   before_action :set_rental, only: [:show, :edit, :update, :destroy]
 
   def index
+    authorize(Rental)
     movies = Rental.rentables("Movie")
     series = Rental.rentables("Serie")
     render json: {"movies" => movies, "series" => series}, status: :ok
@@ -26,6 +27,7 @@ class Api::RentalsController < ApplicationController
 
   def create
     @rental = Rental.new(rental_params)
+    authorize(@rental)
     if @rental.save
       render json: @rental, status: :ok
     else
@@ -34,6 +36,7 @@ class Api::RentalsController < ApplicationController
   end
 
   def update
+    authorize(@rental)
     if @rental.update(rental_params)
       render json: @rental, status: :ok
     else
@@ -42,6 +45,7 @@ class Api::RentalsController < ApplicationController
   end
 
   def destroy
+    authorize(@rental)
     @rental.destroy
     render nothing: true, status: :no_content
   end

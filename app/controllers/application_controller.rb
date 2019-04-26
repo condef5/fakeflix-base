@@ -1,17 +1,13 @@
 class ApplicationController < ActionController::API
   before_action :authenticate_request
-  before_action :authorization_user, only: [:create, :update, :destroy]
-
   attr_reader :current_user
+  include Pundit
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
   def authenticate_request
     @current_user = user
     render json: { error: 'Not Authorized' }, status: 401 unless @current_user
-  end
-
-  def authorization_user
-    render json: { error: 'Unnecessary permissions' }, status: 403 if @current_user.role != "admin"
   end
 
   def user
@@ -26,5 +22,9 @@ class ApplicationController < ActionController::API
     if request.headers['Authorization'].present?
       return request.headers['Authorization'].split(' ').last
     end
+  end
+
+  def user_not_authorized
+    render json: { error: 'Unnecessary permissions' }, status: 403
   end
 end
